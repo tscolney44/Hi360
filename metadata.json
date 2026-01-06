@@ -1,0 +1,12 @@
+{
+  "name": "Hi360 Studio",
+  "short_name": "Hi360",
+  "description": "High-Fidelity Audio Streaming Studio. Master-quality playback directly in your browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#007aff",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
