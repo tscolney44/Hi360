@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(hi360_audio)
+add_library(hi360_audio SHARED audio_pipeline.cpp)
+find_library(log-lib log)
+target_link_libraries(hi360_audio ${log-lib})
