@@ -23,13 +23,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Configure Android SDK
-        run: |
-          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
-          echo "$SDK_ROOT/cmdline-tools/16.0/bin" >> $GITHUB_PATH
-          export PATH="$SDK_ROOT/cmdline-tools/16.0/bin:$PATH"
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools,platforms;android-35,build-tools;35.0.0'
       - name: Install Gradle
         run: |
           curl -L https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip
