@@ -8,3 +8,7 @@ local.properties
 **/build
 *.jks
 *.keystore
+
+.vercel
+*.apk
+*.aab

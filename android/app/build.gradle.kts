@@ -3,6 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
+// Set in CI via -PHI360_API_URL=https://your-site/api/catalogue (GitHub repo variable HI360_API_URL), or in gradle.properties locally.
+val apiUrl: String = (project.findProperty("HI360_API_URL") as String?)?.takeIf { it.startsWith("https://") } ?: "https://YOUR-HI360-DOMAIN/api/catalogue"
+
 android {
     namespace = "com.hi360.app"
     compileSdk = 35
@@ -12,7 +15,19 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
-        buildConfigField("String", "DEFAULT_API_URL", "\"https://YOUR-HI360-DOMAIN/api/catalogue\"")
+        buildConfigField("String", "DEFAULT_API_URL", "\"$apiUrl\"")
+    }
+    signingConfigs {
+        create("release") {
+            val ks = System.getenv("KEYSTORE_PATH")
+            if (ks != null) { storeFile = file(ks); storePassword = System.getenv("KEYSTORE_PASSWORD"); keyAlias = System.getenv("KEY_ALIAS"); keyPassword = System.getenv("KEY_PASSWORD") }
+        }
+    }
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            if (System.getenv("KEYSTORE_PATH") != null) signingConfig = signingConfigs.getByName("release")
+        }
     }
     buildFeatures { compose = true; buildConfig = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
@@ -30,6 +45,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-session:1.5.1")
+    implementation("androidx.media3:media3-common:1.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20240303")
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
