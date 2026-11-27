@@ -27,7 +27,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: gradle assembleRelease -PHI360_API_URL="${{ vars.HI360_API_URL }}"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: Hi360-release-apk, path: android/app/build/outputs/apk/release/*.apk }
       - name: Attach to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
