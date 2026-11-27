@@ -19,7 +19,7 @@ jobs:
       - name: Build debug APK
         working-directory: android
         run: gradle assembleDebug -PHI360_API_URL="${{ vars.HI360_API_URL }}"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Hi360-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
