@@ -139,7 +139,7 @@ private fun SettingsDialog(vm: Hi360ViewModel, onClose: () -> Unit) {
                 Text("Downloads, offline library and exclusive/bit-perfect output are not part of this build.", style = MaterialTheme.typography.bodySmall, color = Color.LightGray)
             }
         },
-        confirmButton = { TextButton(onClick = { vm.setEndpoint(url); onClose() }) { Text("Save and connect") } },
+        confirmButton = { TextButton(onClick = { vm.updateEndpoint(url); onClose() }) { Text("Save and connect") } },
         dismissButton = { TextButton(onClick = onClose) { Text("Cancel") } })
 }
 

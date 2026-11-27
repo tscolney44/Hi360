@@ -97,7 +97,7 @@ class Hi360ViewModel(app: Application) : AndroidViewModel(app) {
             loading = false; refreshing = false
         }
     }
-    fun setEndpoint(v: String) { endpoint = v.trim(); prefs.edit().putString("endpoint", endpoint).apply(); refresh() }
+    fun updateEndpoint(v: String) { endpoint = v.trim(); prefs.edit().putString("endpoint", endpoint).apply(); refresh() }
     fun toggleFav(id: String) { favourites = if (id in favourites) favourites - id else favourites + id; prefs.edit().putStringSet("favs", favourites).apply() }
 
     // ---- playback ----------------------------------------------------------
